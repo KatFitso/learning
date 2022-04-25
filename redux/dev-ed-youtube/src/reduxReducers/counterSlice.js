@@ -8,11 +8,21 @@ const initialState = {
 
 //thunk is used for async functions
 //apparently you should export EVERYTHING
-export const incrementAsync = createAsyncThunk("counter", async () => {
-  await fetch("https://www.thunderclient.com/welcome")
-    .then((data) => console.log(data))
-    .catch((err) => log(err.message));
-});
+
+export function fetchCount(amount = 1) {
+  return new Promise((resolve) =>
+    setTimeout(() => resolve({ data: amount }), 500)
+  );
+}
+
+export const incrementAsync = createAsyncThunk(
+  "counter/fetchCount",
+  async (amount) => {
+    const response = await fetchCount(amount);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
 
 //counterSlice will now hold the initial state in it
 export const counterSlice = createSlice({
@@ -27,6 +37,11 @@ export const counterSlice = createSlice({
     },
     incrementByAmount: (state, action) => {
       state.value += action.payload;
+    },
+    incrementIfOdd: (state, action) => {
+      if (state.value % 2 === 1) {
+        state.value += action.payload;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -48,7 +63,8 @@ export const counterSlice = createSlice({
 export const selectCount = (state) => state.counter.value;
 
 //exporting actions
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { increment, decrement, incrementByAmount, incrementIfOdd } =
+  counterSlice.actions;
 
 //exporting the reducer
 export default counterSlice.reducer;
