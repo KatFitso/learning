@@ -4,7 +4,6 @@ import CommentList from "./CommentList";
 function App() {
   return (
     <div className="App" id="testing">
-      testing
       <CommentBox />
       <CommentList />
     </div>

@@ -2,7 +2,18 @@ import { render, screen } from "@testing-library/react";
 // import App from "../App";
 import CommentBox from "../CommentBox";
 
-it("has text", () => {
+let appContainer;
+
+beforeEach(() => {
   const { container } = render(<CommentBox />);
-  expect(container.firstChild.innerHTML).toContain("CommentBox");
+  appContainer = container;
+});
+
+it("comment box renders", () => {
+  expect(appContainer.firstChild.innerHTML).toContain("CommentBox");
+});
+
+it("has a text area and a button", () => {
+  expect(appContainer.querySelector("textarea")).toBeVisible();
+  expect(appContainer.querySelector("button")).toBeVisible();
 });

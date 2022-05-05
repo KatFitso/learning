@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import App from "../App";
-// import CommentBox from "../CommentBox";
+import CommentBox from "../CommentBox";
 
 //TODO ~~~ how it works ~~~
 //TODO it('name of test' , () => {thing we want to do in this test})
@@ -24,16 +24,31 @@ import App from "../App";
 //   expect(container.innerHTML).toContain("CommentBox");
 // });
 //*alterntively 4 all at once
-it("has commentbox text", () => {
+
+let appContainer, getByTextFunc;
+
+//before each will run before every test, before all happens once before the rest goes
+beforeAll(() => {
   const { container, getByText } = render(<App />);
-  expect(container.innerHTML).toContain("CommentBox");
-  expect(getByText(/CommentBox/i)).toBeInTheDocument();
+
+  appContainer = container;
+  getByTextFunc = getByText;
+});
+
+it("has commentbox text", () => {
+  // const { container, getByText } = render(<App />);
+  expect(appContainer.innerHTML).toContain("CommentBox");
+  expect(getByTextFunc(/CommentBox/i)).toBeInTheDocument();
   expect(screen.getByText(/commentbox/i)).toBeInTheDocument();
 });
 
 //TODO ~~~~~~~~~~~~~~~ above is testing playground ~~~~~~~~~~~~~~~~~~~
 
-it("contains comment box", () => {
-  const { container, getByText } = render(<App />);
-  expect(container.)
-});
+//still dont know how to shallow check for a component
+// it("contains comment box", () => {
+//   // const { container, getByText } = render(<App />);
+//   const { container: container2 } = render(<CommentBox />);
+//   expect(appContainer).toContain(container2);
+// });
+
+
