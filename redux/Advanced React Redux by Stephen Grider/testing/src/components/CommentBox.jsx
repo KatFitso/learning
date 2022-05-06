@@ -15,7 +15,7 @@ const CommentBox = () => {
     setState((prev) => ({ ...prev, [name]: value }));
   };
   return (
-    <div>
+    <div className="CommentBox">
       <form onSubmit={handleSubmit}>
         <h3>CommentBox</h3>
         <h4>add a comment</h4>

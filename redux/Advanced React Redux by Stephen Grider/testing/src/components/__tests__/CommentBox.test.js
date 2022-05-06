@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 // import App from "../App";
 import CommentBox from "../CommentBox";
 
@@ -16,4 +16,12 @@ it("comment box renders", () => {
 it("has a text area and a button", () => {
   expect(appContainer.querySelector("textarea")).toBeVisible();
   expect(appContainer.querySelector("button")).toBeVisible();
+});
+
+it("textarea that changes", () => {
+  const textarea = appContainer.querySelector("textarea");
+  fireEvent.change(textarea, { target: { value: "qweqwe" } });
+  expect(textarea.innerHTML).toBe("qweqwe");
+  fireEvent.submit(textarea);
+  expect(textarea.innerHTML).toBe("");
 });

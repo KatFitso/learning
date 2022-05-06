@@ -28,7 +28,7 @@ import CommentBox from "../CommentBox";
 let appContainer, getByTextFunc;
 
 //before each will run before every test, before all happens once before the rest goes
-beforeAll(() => {
+beforeEach(() => {
   const { container, getByText } = render(<App />);
 
   appContainer = container;
@@ -51,4 +51,12 @@ it("has commentbox text", () => {
 //   expect(appContainer).toContain(container2);
 // });
 
+//*Here is how I figured I would check if a component is in the render */
 
+it("has Comment Box component", () => {
+  expect(appContainer.querySelector(".CommentBox")).toBeVisible();
+});
+
+it("has Comment List component", () => {
+  expect(appContainer.querySelector(".CommentList")).toBeVisible();
+});
