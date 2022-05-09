@@ -1,8 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
-  comments: ["this is a test", "this is another test"],
+  comments: ["testing", "testing 2"],
 };
+
+export const fetchComments = createAsyncThunk(
+  "commentsList/fetchComments",
+  async () => {
+    const res = await axios.get(
+      "https://jsonplaceholder.typicode.com/comments"
+    );
+    return res.data.map((each) => each.body);
+  }
+);
 
 export const commentSlice = createSlice({
   name: "commentsList",
@@ -11,6 +22,15 @@ export const commentSlice = createSlice({
     addComment: (state, action) => {
       state.comments = [...state.comments, action.payload];
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchComments.fulfilled, (state, action) => {
+        state.comments = action.payload;
+      })
+      .addCase(fetchComments.rejected, () => {
+        console.log("fetch failed");
+      });
   },
 });
 

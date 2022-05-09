@@ -1,5 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import App from "../App";
+import { Provider } from "react-redux";
+import { store } from "redux/store";
+import App from "../../App";
 import CommentBox from "../CommentBox";
 
 //TODO ~~~ how it works ~~~
@@ -29,7 +31,11 @@ let appContainer, getByTextFunc;
 
 //before each will run before every test, before all happens once before the rest goes
 beforeEach(() => {
-  const { container, getByText } = render(<App />);
+  const { container, getByText } = render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
 
   appContainer = container;
   getByTextFunc = getByText;

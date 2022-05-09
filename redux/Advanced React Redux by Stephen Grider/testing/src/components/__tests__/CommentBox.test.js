@@ -1,4 +1,6 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { store } from "redux/store";
 // import App from "../App";
 import CommentBox from "../CommentBox";
 
@@ -7,7 +9,11 @@ let appContainer;
 //beforeEach will run before every test even those inside of describes
 //@testing-library has an auto mount / unmount
 beforeEach(() => {
-  const { container } = render(<CommentBox />);
+  const { container } = render(
+    <Provider store={store}>
+      <CommentBox />
+    </Provider>
+  );
   appContainer = container;
 });
 
