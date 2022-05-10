@@ -15,7 +15,14 @@ const Navbar = () => {
     dispatch(authUser());
   };
   return (
-    <div className="navbar" style={{ display: "flex" }}>
+    <div
+      className="navbar"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "75px",
+      }}
+    >
       <Link to="/">Home</Link>
       <Link to="/post">Post</Link>
       <SignIn auth={auth} handleAuth={handleAuth} />
