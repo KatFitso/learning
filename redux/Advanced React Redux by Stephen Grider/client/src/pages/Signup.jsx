@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { signupUser, selectAuth, selectErr } from "redux/reducers/auth";
 import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,8 @@ const Signup = () => {
     e.preventDefault();
     dispatch(signupUser(state));
   };
+
+  if (isAuthed) return <Navigate to="/" />;
 
   return (
     <div>

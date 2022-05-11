@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { deleteCookie, setCookie } from "util/cookies";
 
 const initialState = {
   authToken: "",
@@ -36,8 +37,12 @@ export const authSlice = createSlice({
   name: "userAuth",
   initialState,
   reducers: {
-    signoutUser: (state, action) => {
+    signoutUser: (state) => {
       state.authToken = "";
+      deleteCookie("token");
+    },
+    setToken: (state, action) => {
+      state.authToken = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -55,7 +60,7 @@ export const authSlice = createSlice({
           state.loading = false;
           return;
         }
-
+        setCookie("token", payload);
         state.errorMSg = "";
         state.authToken = payload;
         state.loading = false;
@@ -74,7 +79,7 @@ export const authSlice = createSlice({
           state.loading = false;
           return;
         }
-
+        setCookie("token", payload);
         state.errorMSg = "";
         state.authToken = payload;
         state.loading = false;
@@ -91,5 +96,5 @@ export const authSlice = createSlice({
 export const selectAuth = (state) => state.userAuth.authToken;
 export const selectErr = (state) => state.userAuth.errorMSg;
 
-export const { signoutUser } = authSlice.actions;
+export const { signoutUser, setToken } = authSlice.actions;
 export default authSlice.reducer;
