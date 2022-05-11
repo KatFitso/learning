@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./Layout";
+import App from "./components/Layout";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
@@ -8,6 +8,10 @@ import { store } from "redux/store";
 
 import Home from "pages/Home";
 import { Routes, Route } from "react-router-dom";
+import Signup from "pages/Signup";
+import Login from "pages/Login";
+import ProtectedRoutes from "util/ProtectedRoutes";
+import Profile from "pages/Profile";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,6 +21,11 @@ root.render(
         <App>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <ProtectedRoutes>
+              <Route path="/profile" element={<Profile />} />
+            </ProtectedRoutes>
           </Routes>
         </App>
       </Provider>

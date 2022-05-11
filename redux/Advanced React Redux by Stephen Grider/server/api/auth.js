@@ -11,7 +11,7 @@ const userSignup = async (req, res) => {
 
   try {
     if (!email || !password)
-      return res.status(422).json({
+      return res.status(200).json({
         err: "Unprocessable Entity",
         msg: "please enter valid credentials",
       });
@@ -20,7 +20,7 @@ const userSignup = async (req, res) => {
 
     if (user)
       return res
-        .status(422)
+        .status(200)
         .json({ err: "Unprocessable Entity", msg: "Email already taken" });
 
     user = new userModel({ email, password });
@@ -50,9 +50,11 @@ const userSignup = async (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
+  console.log("email " + email, "password " + password);
+
   try {
-    if (!email || !password)
-      return res.status(422).json({
+    if (email.length < 1 || password.length < 1)
+      return res.status(200).json({
         err: "Unprocessable Entity",
         msg: "please enter valid credentials",
       });

@@ -25,7 +25,7 @@ app.use("/api/auth", require("./api/auth"));
 //added authUser for the token checking middleware
 app.use("/api/comments", authUser, require("./api/comments"));
 
-//
+//server startup
 app.listen(PORT, () => {
   console.log(`Server Listening @ ${PORT}`);
 });
